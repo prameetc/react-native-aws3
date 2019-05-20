@@ -5,7 +5,7 @@
 import { Request } from './Request'
 import { S3Policy } from './S3Policy'
 
-const AWS_DEFAULT_S3_HOST = 's3.amazonaws.com'
+const AWS_DEFAULT_S3_HOST = 's3.ap-east-1.amazonaws.com'
 
 const EXPECTED_RESPONSE_KEY_VALUE_RE = {
   key: /<Key>(.*)<\/Key>/,
