@@ -3,6 +3,7 @@
  */
 
 import { Request } from './Request'
+import { FetchRequest } from './FetchRequest'
 import { S3Policy } from './S3Policy'
 
 const AWS_DEFAULT_S3_HOST = 's3.ap-east-1.amazonaws.com'
@@ -47,4 +48,23 @@ export class RNS3 {
       .send()
       .then(setBodyAsParsedXML)
   }
+
+  static putWithFetch(file, options) {
+    options = {
+      ...options,
+      key: (options.keyPrefix || '') + file.name,
+      date: new Date,
+      contentType: file.type
+    }
+
+    const url = `https://${options.bucket}.${options.awsUrl || AWS_DEFAULT_S3_HOST}`
+    const method = "POST"
+    const policy = S3Policy.generate(options)
+
+    return FetchRequest.create(url, method, policy)
+      .set("file", file)
+      .send()
+      .then(setBodyAsParsedXML)
+  }
 }
+
